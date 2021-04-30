@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <title>Faketube Online</title>
+</head>
+
+<body>
+
+    <h1 id="baslıkAdmin"> Video Admin </h1>
+
+    <form id="form">
+        <div class="container">
+            <label>Username : </label>
+            <input id="usernameid" type="text" placeholder="Enter Username" name="username">
+            <label>Password : </label>
+            <input id="pwid" type="password" placeholder="Enter Password" name="password">
+            <button type="submit" id="kaydetid">Login</button>
+
+        </div>
+    </form>
+    <script>
+        $(document).ready(function() {
+            $("#kaydetid").click(function() {
+                const username = document.getElementById("usernameid").value
+                const password = document.getElementById("pwid").value
+                const idpw = [username, password]
+                const data = JSON.stringify(idpw)
+                $.ajax({
+                    type: "POST",
+                    url: "checkLogin.php",
+                    data: {
+                        data: data
+                    },
+                    cache: false,
+                    success: function(res) {
+                        var result = JSON.parse(res)
+                        if (result.error == 1) {
+                            alert("Giriş yapıldı")
+                            window.location = "page2.php"
+
+                        } else {
+                            alert("Kullanıcı adı ve şifreyi düzeltin")
+                        }
+
+
+
+                    }
+                });
+
+
+
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
